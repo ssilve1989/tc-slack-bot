@@ -1,5 +1,5 @@
 import Brain from './Brain';
-import StandupBot from './StandupBot';
+import TCBot from './TCBot';
 import Train from './Train';
 import Logger from './Logger';
 
@@ -18,9 +18,9 @@ const eachKey = (object, callback) => {
 	}
 };
 
-const standupBot = new StandupBot(token);
-standupBot.Brain = new Brain();
-standupBot.initialize();
+const tcBot = new TCBot(token);
+tcBot.Brain = new Brain();
+tcBot.initialize();
 
 let customPhrasesText;
 let customPhrases;
@@ -39,26 +39,26 @@ try {
 
 Logger.info('Bot is learning...');
 
-standupBot.Teach = standupBot.Brain.teach.bind(standupBot.Brain);
+tcBot.Teach = tcBot.Brain.teach.bind(tcBot.Brain);
 
-eachKey(customPhrases, standupBot.Teach);
-eachKey(builtinPhrases, standupBot.Teach);
-standupBot.Brain.think();
+eachKey(customPhrases, tcBot.Teach);
+eachKey(builtinPhrases, tcBot.Teach);
+tcBot.Brain.think();
 Logger.info('Bot finished learning...time to listen');
 
-standupBot
+tcBot
 	.listen()
 	.hears([/training time/ig], (speech, message) => {
 		Logger.info('Delegating to on-the-fly training module...');
-		new Train(standupBot.Brain, speech, message);
+		new Train(tcBot.Brain, speech, message);
 	})
 	.hears('.*', (speech, message) => {
-		const interpretation = standupBot.Brain.interpret(message.text);
+		const interpretation = tcBot.Brain.interpret(message.text);
 		Logger.info(`Bot heard: ${message.text}`);
 		Logger.info(`Bot interpretation: ${interpretation}`);
 
 		if(interpretation.guess) {
-			standupBot.Brain.invoke(interpretation.guess, interpretation, speech, message);
+			tcBot.Brain.invoke(interpretation.guess, interpretation, speech, message);
 		}
 		else {
 			speech.reply(message, 'Hm...I can\'t tell what you said...');

@@ -10,7 +10,7 @@ export const Questions = {
 	3: "Is there anything blocking you?"
 };
 
-class StandupBot {
+class TCBot {
 
 	constructor(token) {
 		this.token      = token;
@@ -89,4 +89,4 @@ class StandupBot {
 	}
 }
 
-export default StandupBot;
+export default TCBot;
