@@ -1,20 +1,9 @@
 import fs from 'fs';
 import path from 'path';
+import { USER_RE, getParticipantsString } from '../helpers';
 import Logger from '../Logger';
 
-const participants = require('../../data/participants');
-
-const USER_RE               = /<@(.*)>/;
-const getParticipantsString = (participants) => {
-	const message = 'Current members:\n';
-	const members = (participants.length === 0) ?
-		'0 members.' : participants.map(function(participant) {
-		return participant.name;
-	}).join('\n');
-
-	return (message + members);
-};
-
+const participants  = require('../../data/participants');
 let newParticipants = 0;
 
 class ConfigureParticipants {

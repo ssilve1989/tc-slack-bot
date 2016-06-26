@@ -48,20 +48,20 @@ Logger.info('Bot finished learning...time to listen');
 
 tcBot
 	.listen()
-	.hears([/training time/ig], (speech, message) => {
+	.hears([/training time/ig], (bot, message) => {
 		Logger.info('Delegating to on-the-fly training module...');
-		new Train(tcBot.Brain, speech, message);
+		new Train(tcBot.Brain, bot, message);
 	})
-	.hears('.*', (speech, message) => {
+	.hears('.*', (bot, message) => {
 		const interpretation = tcBot.Brain.interpret(message.text);
 		Logger.info(`Bot heard: ${message.text}`);
 		Logger.info(`Bot interpretation: ${interpretation}`);
 
 		if(interpretation.guess) {
-			tcBot.Brain.invoke(interpretation.guess, interpretation, speech, message);
+			tcBot.Brain.invoke(interpretation.guess, interpretation, bot, message);
 		}
 		else {
-			speech.reply(message, 'Hm...I can\'t tell what you said...');
-			speech.reply(message, `\`\`\`\n ${JSON.stringify(interpretation)}\n\`\`\``);
+			bot.reply(message, 'Hm...I can\'t tell what you said...');
+			bot.reply(message, `\`\`\`\n ${JSON.stringify(interpretation)}\n\`\`\``);
 		}
 	});

@@ -61,11 +61,14 @@ class Train {
 						Brain.teach(phraseName, phraseExamples);
 						Brain.think();
 						Train.writeSkill(phraseName, phraseExamples, (err) => {
+							Logger.debug('Write skill callback invoked');
+
 							if(err) {
 								return convo.say('Oh no! Something wen\'t wrong while i was trying to add that to my brain.' +
 								`\`\`\`\n${JSON.stringify(err)}\`\`\`\n`);
 							}
-							convo.say('All done! You should try seeing if I understsand now.')
+							convo.say('All done! You should try seeing if I understsand now.');
+							convo.next();
 						});
 						convo.next();
 					}
@@ -116,7 +119,7 @@ class Train {
 				if(!existingSkill) {
 					Logger.info('Writing new skill file');
 					const emptySkillStream = fs.createReadStream(path.join(__dirname, '/empty.skill.js'));
-					const writeStream = fs.createWriteStream(path.join(__dirname, `./skills/${name}.js`));
+					const writeStream = fs.createWriteStream(path.join(__dirname, `../src/skills/${name}.js`));
 					emptySkillStream.pipe(writeStream);
 					emptySkillStream.on('error', callback);
 					writeStream.on('error', callback);

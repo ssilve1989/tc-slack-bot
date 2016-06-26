@@ -51,5 +51,12 @@
     "do you like me",
     "do you find me attractive",
     "you are hot"
+  ],
+  "Greetings": [
+    "hey",
+    "hello",
+    "hi",
+    "good morning",
+    "good afternoon"
   ]
 }
