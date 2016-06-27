@@ -2,10 +2,10 @@
  * Created by ssilvestri on 6/25/16.
  */
 import Logger from './Logger';
+import { BUILD_SKILLS_PATH, SRC_SKILLS_PATH} from './config';
 
 const fs = require('fs');
 const path = require('path');
-const customPhrases = require('../custom-phrases');
 const CUSTOM_PHRASE_LOCATION = path.join(__dirname, '../custom-phrases.json');
 
 class Train {
@@ -19,7 +19,6 @@ class Train {
 	constructor(Brain, speech, message) {
 		let phraseName;
 		let phraseExamples = [];
-		const customPhraseKeys = Object.keys(customPhrases);
 
 		Logger.info('Training on the fly!');
 		Logger.info('Asking for the name of the skill to be trained...');
@@ -61,16 +60,18 @@ class Train {
 						Brain.teach(phraseName, phraseExamples);
 						Brain.think();
 						Train.writeSkill(phraseName, phraseExamples, (err) => {
-							Logger.debug('Write skill callback invoked');
+							Logger.debug('Write skill callback invoked', err);
 
 							if(err) {
-								return convo.say('Oh no! Something wen\'t wrong while i was trying to add that to my brain.' +
+								convo.say('Oh no! Something wen\'t wrong while i was trying to add that to my brain.' +
 								`\`\`\`\n${JSON.stringify(err)}\`\`\`\n`);
+								convo.next();
 							}
-							convo.say('All done! You should try seeing if I understsand now.');
-							convo.next();
+							else {
+								convo.say('All done! You should try seeing if I understsand now.');
+								convo.next();
+							}
 						});
-						convo.next();
 					}
 				},
 				{
@@ -118,12 +119,28 @@ class Train {
 
 				if(!existingSkill) {
 					Logger.info('Writing new skill file');
-					const emptySkillStream = fs.createReadStream(path.join(__dirname, '/empty.skill.js'));
-					const writeStream = fs.createWriteStream(path.join(__dirname, `../src/skills/${name}.js`));
-					emptySkillStream.pipe(writeStream);
-					emptySkillStream.on('error', callback);
-					writeStream.on('error', callback);
-					writeStream.on('finish', callback.bind(null, null));
+					// I'm not very familiar with Node File operations so this can probably be better.
+					const emptySrcSkillStream = fs.createReadStream(path.join(__dirname, '/empty.skill.js'));
+					const writeSrcStream = fs.createWriteStream(path.join(SRC_SKILLS_PATH, `/${name}.js`));
+
+					Logger.debug(`Attempting to write ${name}.js to ${SRC_SKILLS_PATH}`);
+					emptySrcSkillStream.pipe(writeSrcStream);
+					emptySrcSkillStream.on('error', callback);
+
+					writeSrcStream.on('error', callback);
+					writeSrcStream.on('finish', () => {
+						const writeBuildStream = fs.createWriteStream(path.join(BUILD_SKILLS_PATH, `/${name}.js`));
+						const emptyBuildSkillStream = fs.createReadStream(path.join(__dirname, '/empty.skill.js'));
+
+						Logger.debug(`Attempting to write ${name}.js to ${BUILD_SKILLS_PATH}`);
+
+						emptyBuildSkillStream.pipe(writeBuildStream);
+						emptyBuildSkillStream.on('error', callback);
+
+						writeBuildStream.on('error', callback);
+						writeBuildStream.on('finish', callback.bind(null, null));
+					});
+
 				}
 				else {
 					callback();

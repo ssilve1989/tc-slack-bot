@@ -58,5 +58,37 @@
     "hi",
     "good morning",
     "good afternoon"
+  ],
+  "DBZ": [
+    "vegeta",
+    "saiyan",
+    "goku",
+    "ki blast",
+    "kamehameha",
+    "spirit bomb",
+    "goku is a saiyan",
+    "goku is the strongest saiyan",
+    "broly is a chump",
+    "vegeta is a crybaby",
+    "videl, chichi and bulma are women",
+    "planet vegeta was their home at one time",
+    "frieza beat the shit out of most of them",
+    "then goku dumped all over frieza"
+  ],
+  "Farewells": [
+    "good bye",
+    "goodbye",
+    "bye",
+    "see ya",
+    "see ya later",
+    "see you later",
+    "cio",
+    "adios",
+    "later",
+    "peace",
+    "talk to you later",
+    "have a good day",
+    "have a good evening",
+    "see you tomorrow"
   ]
 }
