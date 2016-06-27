@@ -1,4 +1,4 @@
-import { Questions } from '../StandupBot';
+import { Questions } from '../TCBot';
 import moment from 'moment';
 import Logger from '../Logger';
 

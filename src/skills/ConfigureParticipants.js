@@ -24,6 +24,7 @@ class ConfigureParticipants {
 					convo.say('Alright! Updating the list...');
 					ConfigureParticipants.updateParticipants(response, convo);
 				}
+				convo.next();
 			}
 			else {
 				const match = text.match(USER_RE);
@@ -35,8 +36,8 @@ class ConfigureParticipants {
 					ConfigureParticipants.addParticipant(match[ 1 ], convo);
 				}
 			}
+			convo.next();
 		});
-		convo.next();
 	}
 
 	static addParticipant(participant, convo) {
