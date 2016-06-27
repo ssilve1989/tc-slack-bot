@@ -5,15 +5,18 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --harmony index.js",
-    "build": "rm -rf build/* && babel src --out-dir build && npm run start",
-    "build:watch": "babel src --watch --out-dir build"
+    "compile" : "rm -rf build/* && babel src --out-dir build",
+    "build": "npm run compile && npm run start",
+    "build:watch": "babel src --watch --out-dir build",
+    "start" : "npm run compile && forever start forever.json",
+    "stop" : "forever stop tc-slack-bot"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "botkit": "^0.2.2",
+    "forever": "^0.15.2",
     "loglevel": "^1.4.1",
     "moment": "^2.13.0",
     "natural": "^0.4.0",
