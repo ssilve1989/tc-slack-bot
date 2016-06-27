@@ -8,7 +8,7 @@
     "compile" : "rm -rf build/* && babel src --out-dir build",
     "build": "npm run compile && npm run start",
     "build:watch": "babel src --watch --out-dir build",
-    "start" : "npm run compile && forever start forever.json",
+    "start" : "npm run compile && forever -o tc-bot.log -e tc.bot.err start forever.json",
     "stop" : "forever stop tc-slack-bot"
   },
   "keywords": [],

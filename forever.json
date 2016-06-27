@@ -1,7 +1,7 @@
 {
-	"uid" : "tc-slack-bot",
-	"append" : true,
-	"watch" : true,
-	"script" : "index.js",
-	"sourceDir" : "./"
+	"uid"      : "tc-slack-bot",
+	"append"   : true,
+	"watch"    : true,
+	"script"   : "index.js",
+	"sourceDir": "./"
 }
