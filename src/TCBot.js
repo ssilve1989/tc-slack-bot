@@ -29,6 +29,18 @@ class TCBot {
 	initialize() {
 		this.controller.on('hello', (bot) => {
 			/*
+			bot.api.im.list({}, (err, response) => {
+				if(response.ok) {
+					response.ims.forEach((im) => {
+						bot.say({
+							text : 'I\'ve reconnected!',
+							channel : im.id
+						})
+					});
+				}
+			});
+			*/
+			/*
 			bot.api.users.list({}, (err, response) => {
 				if(response.ok) {
 					response.members.forEach((member) => {

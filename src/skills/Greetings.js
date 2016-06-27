@@ -9,6 +9,4 @@ exports.default = function (skill, info, bot, message) {
   bot.reply(message, "I understood this as: " + skill + ", but you haven't configured how to make me work yet!");
 };
 
-module.exports = exports["default"]; /**
-                                      * Created by ssilvestri on 6/25/16.
-                                      */
+module.exports = exports["default"];
