@@ -90,5 +90,12 @@
     "have a good day",
     "have a good evening",
     "see you tomorrow"
+  ],
+  "RemoveParticipant": [
+    "remove <@U0P3B1CV9> from the meeting",
+    "please remove <@U0P3B1CV9> from the meeting",
+    "take <@U0P3B1CV9> off the list",
+    "can we take <@U0P3B1CV9> off the list",
+    "<@U0P3B1CV9>: doesn’t need to come to the meeting anymore"
   ]
 }
