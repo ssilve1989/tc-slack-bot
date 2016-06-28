@@ -8,7 +8,7 @@ const myself = `
 		Add more members to the daily standup list
 		Start the meeting
 		Tell jokes! (Well...only one joke)
-	I can also be trained to understand new things! But only if Steve says its ok. So gtfo otherwise...
+	I can also be trained to understand new things! But only if Steve says its ok.
 	Bye!
 `;
 
